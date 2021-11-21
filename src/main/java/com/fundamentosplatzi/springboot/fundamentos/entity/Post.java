@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name= "Post")
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  //identity para que no se siga el contador de otros registros
     @Column(name = "id_post", nullable = false,unique = true)
     private Long id;
-    @Column(name = "description",length = 255)
+    @Column(name = "description",length = 250)
     private String description;
     @ManyToOne
     private User user;
