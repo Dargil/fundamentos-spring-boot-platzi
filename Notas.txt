@@ -28,3 +28,7 @@ PUT
 
 DELETE
 	localhost:8081/app/api/users/1
+
+PAGEABLE GET
+
+	localhost:8081/app/api/users/pageable/?page=1&size=5
