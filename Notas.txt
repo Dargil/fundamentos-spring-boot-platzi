@@ -2,4 +2,29 @@ https://start.spring.io/
 
 
 GET 
-localhost:8081/app/api/users/
+	localhost:8081/app/api/users/
+
+POST
+	localhost:8081/app/api/users/
+
+	Body
+		{
+    			"name": "michael",
+    			"email": "michael2.test@mail.com",
+    			"birthDay": "2021-04-25"
+		}
+
+
+PUT
+	localhost:8081/app/api/users/17
+
+	Body
+		{
+    			"name": "michael test update",
+    			"email": "michael2.update@mail.com",
+    			"birthDay": "2021-04-28"
+		}
+
+
+DELETE
+	localhost:8081/app/api/users/1

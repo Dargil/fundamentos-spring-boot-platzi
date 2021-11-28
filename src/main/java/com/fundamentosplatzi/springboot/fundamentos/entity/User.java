@@ -1,5 +1,6 @@
 package com.fundamentosplatzi.springboot.fundamentos.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class User {
     private Long id;
     @Column(length = 50)
     private String name;
-    @Column(length = 50, unique = true)
+    //@Column(length = 50, unique = true)
+    @Column(length = 50)
     private String email;
     private LocalDate birthDay;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
