@@ -9,6 +9,7 @@ import com.fundamentosplatzi.springboot.fundamentos.pojo.UserPojo;
 import com.fundamentosplatzi.springboot.fundamentos.repository.UserRepository;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -52,15 +53,47 @@ public class FundamentosApplication implements CommandLineRunner {
     }
 
     private void getInformationJpqlFromUser() {
+  /*
         LOGGER.info("Usuario con el metodo findByUserEmail " +
                 userRepository.findByUserEmail("Julie@domain.com").orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
         // Ordenar y bucar a partir de una propiedad
         //ascending -> tambien muestra los usuarios de manera ascendente
         userRepository.findAndSort("user", Sort.by("id").descending()).stream().forEach(user -> LOGGER.info("Usuario con metodo sort " + user));
 
-        userRepository.findByName("Jhon").stream().forEach(user -> LOGGER.info("Usuario con query method " +user));
-        LOGGER.info("Usuario con query method findByEmailAndName " + userRepository.findByEmailAndName("Jhon@domain.com","Jhon").orElseThrow(()-> new RuntimeException("Usuario no encontrado")));
+        userRepository.findByName("Jhon").stream().forEach(user -> LOGGER.info("Usuario con query method " + user));
+        LOGGER.info("Usuario con query method findByEmailAndName " + userRepository.findByEmailAndName("Jhon@domain.com", "Jhon").orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
 
+        userRepository.findByNameLike("%u%")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario findByNameLike " + user));
+        ;
+
+        userRepository.findByNameOrEmail(null,"user10@domain.com")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario findByNameOrEmail " + user));
+        ;
+        userRepository.findByNameOrEmail("user10",null)
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario findByNameOrEmail " + user));
+        ;
+
+*/
+        userRepository.
+                findByBirthDayBetween(LocalDate.of(2021,3,1),LocalDate.of(2021,4,2))
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario con intervalo de fechas " + user));
+
+        userRepository.findByNameLikeOrderByIdDesc("%user%")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuarios encontrado con like y ordenado " + user));
+
+        userRepository.findByNameLikeOrderByIdAsc("%user%")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuarios encontrado con like y ordenado ASc " + user));
+
+        userRepository.findByNameContainingOrderByIdDesc("user")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuarios encontrado findByNameContainingOrderByIdDesc " + user));
 
 
     }
