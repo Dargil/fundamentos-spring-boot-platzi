@@ -16,7 +16,7 @@ public class User {
     private Long id;
     @Column(length = 50)
     private String name;
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String email;
     private LocalDate birthDay;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)

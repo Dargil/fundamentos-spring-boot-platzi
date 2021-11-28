@@ -56,16 +56,18 @@ public class FundamentosApplication implements CommandLineRunner {
         saveWithErrorTransactional();
     }
 
-    private void saveWithErrorTransactional(){
-        User test1 = new User("TestTransactional1","TestTransactional1@domain.com",LocalDate.now());
-        User test2 = new User("Test2Transactional2","Test2Transactional2@domain.com",LocalDate.now());
-        User test3 = new User("Test3Transactional3","Test3Transactional3@domain.com",LocalDate.now());
-        User test4 = new User("Test4Transactional4","Test4Transactional4@domain.com",LocalDate.now());
+    private void saveWithErrorTransactional() {
+        User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
+        User test2 = new User("Test2Transactional2", "Test2Transactional2@domain.com", LocalDate.now());
+        User test3 = new User("Test3Transactional3", "TestTransactional1@domain.com", LocalDate.now());
+        User test4 = new User("Test4Transactional4", "Test4Transactional4@domain.com", LocalDate.now());
 
-        List<User> users = Arrays.asList(test1,test2,test3,test4);
-
-        userService.saveTransactional(users);
-
+        List<User> users = Arrays.asList(test1, test2, test3, test4);
+        try {
+            userService.saveTransactional(users);
+        } catch (Exception e) {
+            LOGGER.error("Esto es una Excepcion dentro del metodo transaccional " + e);
+        }
 
         userService.getAllUsers().stream().
                 forEach(user -> LOGGER.info("Este es el usuario dentro del metodo transacional " + user));
@@ -99,7 +101,7 @@ public class FundamentosApplication implements CommandLineRunner {
 
 */
         userRepository.
-                findByBirthDayBetween(LocalDate.of(2021,3,1),LocalDate.of(2021,4,2))
+                findByBirthDayBetween(LocalDate.of(2021, 3, 1), LocalDate.of(2021, 4, 2))
                 .stream()
                 .forEach(user -> LOGGER.info("Usuario con intervalo de fechas " + user));
 
@@ -115,9 +117,9 @@ public class FundamentosApplication implements CommandLineRunner {
                 .stream()
                 .forEach(user -> LOGGER.info("Usuarios encontrado findByNameContainingOrderByIdDesc " + user));
 
-        LOGGER.info("El usuario a partir del named parameter es: "+
-                userRepository.getAllByBirthDayAndEmail(LocalDate.of(2021,03,20),"Jhon@domain.com")
-                        .orElseThrow(()-> new RuntimeException("No se encontro el usuario a partir del named parameter"))
+        LOGGER.info("El usuario a partir del named parameter es: " +
+                userRepository.getAllByBirthDayAndEmail(LocalDate.of(2021, 03, 20), "Jhon@domain.com")
+                        .orElseThrow(() -> new RuntimeException("No se encontro el usuario a partir del named parameter"))
         );
 
     }
